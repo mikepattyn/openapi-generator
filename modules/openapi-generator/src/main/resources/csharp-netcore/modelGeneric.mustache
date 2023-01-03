@@ -1,54 +1,50 @@
+/// <summary>
+/// {{description}}{{^description}}{{classname}}{{/description}}
+/// </summary>
+{{>visibility}} class {{classname}}
+{
+    {{#vars}}
+    {{#items.isEnum}}
+    {{#items}}
+    {{^complexType}}
+{{>modelInnerEnum}}
+    {{/complexType}}
+    {{/items}}
+    {{/items.isEnum}}
+    {{#isEnum}}
+    {{^complexType}}
+{{>modelInnerEnum}}
+    {{/complexType}}
+    {{/isEnum}}
+    {{/vars}}
+    {{#vars}}
+    [JsonPropertyName("{{baseName}}")]
+    public {{{dataType}}} {{name}} { get; {{#isReadOnly}}private {{/isReadOnly}}set; }
+    {{/vars}}
+    {{#isAdditionalPropertiesTrue}}
     /// <summary>
-    /// {{description}}{{^description}}{{classname}}{{/description}}
+    /// Gets or Sets additional properties
     /// </summary>
-    {{>visibility}} class {{classname}}
+    public IDictionary<string, object> AdditionalProperties { get; set; }
+    {{/isAdditionalPropertiesTrue}}
+    /// <summary>
+    /// Returns the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()
     {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("class {{classname}} {\n");
+        {{#parent}}
+        sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
+        {{/parent}}
         {{#vars}}
-        {{#items.isEnum}}
-        {{#items}}
-        {{^complexType}}
-{{>modelInnerEnum}}
-        {{/complexType}}
-        {{/items}}
-        {{/items.isEnum}}
-        {{#isEnum}}
-        {{^complexType}}
-{{>modelInnerEnum}}
-        {{/complexType}}
-        {{/isEnum}}
-        {{/vars}}
-        {{#vars}}
-        [JsonPropertyName("{{baseName}}")]
-        public {{{dataType}}} {{name}} { get; {{#isReadOnly}}private {{/isReadOnly}}set; }
+        sb.Append("  {{name}}: ").Append({{name}}).Append("\n");
         {{/vars}}
         {{#isAdditionalPropertiesTrue}}
-        /// <summary>
-        /// Gets or Sets additional properties
-        /// </summary>
-        public IDictionary<string, object> AdditionalProperties { get; set; }
+        sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
         {{/isAdditionalPropertiesTrue}}
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("class {{classname}} {\n");
-            {{#parent}}
-            sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
-            {{/parent}}
-            {{#vars}}
-            sb.Append("  {{name}}: ").Append({{name}}).Append("\n");
-            {{/vars}}
-            {{#isAdditionalPropertiesTrue}}
-            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
-            {{/isAdditionalPropertiesTrue}}
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-{{#validatable}}
-{{>validatable}}
-{{/validatable}}
+        sb.Append("}\n");
+        return sb.ToString();
     }
+}
