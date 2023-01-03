@@ -1,4 +1,4 @@
-name: OpenAPI Generator
+name: OpenAPI Generato
 
 on:
   push:
