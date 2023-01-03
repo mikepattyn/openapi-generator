@@ -16,6 +16,7 @@
 {{>modelInnerEnum}}
         {{/complexType}}
         {{/isEnum}}
+        {{/vars}}
         {{#vars}}
         [JsonPropertyName("{{baseName}}")]
         public {{{dataType}}} {{name}} { get; {{#isReadOnly}}private {{/isReadOnly}}set; }
