@@ -19,6 +19,8 @@ using System.Net.Http.Headers;
 {{#supportsRetry}}
 using Polly;
 {{/supportsRetry}}
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace {{packageName}}.Client
 {
@@ -29,7 +31,7 @@ namespace {{packageName}}.Client
     {
         private readonly IReadableConfiguration _configuration;
         private static readonly string _contentType = "application/json";
-        private readonly JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
+        private readonly JsonSerializerOptions _jsonSerializerOptions = new JsonSerializerOptions
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
@@ -39,9 +41,9 @@ namespace {{packageName}}.Client
             _configuration = configuration;
         }
 
-        public CustomJsonCodec(JsonSerializerOptions serializerOptions, IReadableConfiguration configuration)
+        public CustomJsonCodec(JsonSerializerOptions jsonSerializerOptions, IReadableConfiguration configuration)
         {
-            _serializerOptions = serializerOptions;
+            _jsonSerializerOptions = jsonSerializerOptions;
             _configuration = configuration;
         }
 
@@ -52,7 +54,7 @@ namespace {{packageName}}.Client
         /// <returns>A JSON string.</returns>
         public string Serialize(object obj)
         {
-            return JsonSerializer.Serialize(obj, _serializerOptions);            
+            return JsonSerializer.Serialize(obj, _jsonSerializerOptions);            
         }
 
         public async Task<T> Deserialize<T>(HttpResponseMessage response)
@@ -80,7 +82,7 @@ namespace {{packageName}}.Client
         /// Specifies the settings on a <see cref="JsonSerializer" /> object.
         /// These settings can be adjusted to accommodate custom serialization rules.
         /// </summary>
-        public SerializerOptions SerializerOptions { get; set; } = new JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
+        public JsonSerializerOptions JsonSerializerOptions { get; set; } = new JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };

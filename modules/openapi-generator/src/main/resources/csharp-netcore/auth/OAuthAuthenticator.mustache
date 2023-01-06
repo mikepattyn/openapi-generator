@@ -4,6 +4,8 @@ using System;
 using System.Threading.Tasks;
 using RestSharp;
 using RestSharp.Authenticators;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace {{packageName}}.Client.Auth
 {
@@ -16,7 +18,7 @@ namespace {{packageName}}.Client.Auth
         readonly string _clientId;
         readonly string _clientSecret;
         readonly string _grantType;
-        readonly SerializerOptions _serializerOptions;
+        readonly JsonSerializerOptions _jsonSerializerOptions;
         readonly IReadableConfiguration _configuration;
 
         /// <summary>
@@ -27,13 +29,13 @@ namespace {{packageName}}.Client.Auth
             string clientId,
             string clientSecret,
             OAuthFlow? flow,
-            SerializerOptions serializerOptions,
+            JsonSerializerOptions jsonSerializerOptions,
             IReadableConfiguration configuration) : base("")
         {
             _tokenUrl = tokenUrl;
             _clientId = clientId;
             _clientSecret = clientSecret;
-            _serializerSettings = serializerSettings;
+            _jsonSerializerOptions = jsonSerializerOptions;
             _configuration = configuration;
 
             switch (flow)
