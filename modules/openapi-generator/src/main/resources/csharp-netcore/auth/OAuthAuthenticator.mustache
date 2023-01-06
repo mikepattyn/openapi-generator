@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -17,7 +16,7 @@ namespace {{packageName}}.Client.Auth
         readonly string _clientId;
         readonly string _clientSecret;
         readonly string _grantType;
-        readonly JsonSerializerSettings _serializerSettings;
+        readonly SerializerOptions _serializerOptions;
         readonly IReadableConfiguration _configuration;
 
         /// <summary>
@@ -28,7 +27,7 @@ namespace {{packageName}}.Client.Auth
             string clientId,
             string clientSecret,
             OAuthFlow? flow,
-            JsonSerializerSettings serializerSettings,
+            SerializerOptions serializerOptions,
             IReadableConfiguration configuration) : base("")
         {
             _tokenUrl = tokenUrl;

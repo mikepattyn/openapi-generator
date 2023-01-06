@@ -13,7 +13,6 @@
         /// </summary>
         {{#isString}}
         {{^useGenericHost}}
-        {{! EnumMember not currently supported in System.Text.Json, use a converter instead }}
         [JsonStringEnumValue("{{{value}}}")]
         {{/useGenericHost}}
         {{/isString}}
