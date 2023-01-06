@@ -158,7 +158,7 @@ namespace {{packageName}}.Client
             string requestBody = string.Empty;
             if (requestOptions.Data != null)
             {
-                var serializerSettings = new JsonSerializerSettings();
+                var jsonSerializerOptions = new JsonSerializerSettings();
                 requestBody = JsonConvert.SerializeObject(requestOptions.Data, serializerSettings);
             }
 
